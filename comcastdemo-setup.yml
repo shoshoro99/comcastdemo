@@ -1,0 +1,18 @@
+# ./ansible-nginx/tasks/install_nginx.yml
+ 
+- name: NGINX | Installing NGINX repo rpm
+  yum:
+    name: http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+
+- name: Upload default index.html for host
+  copy: src=~/comcast_demo/index.html dest=/usr/share/nginx/html/  mode=0644
+   
+- name: NGINX | Installing NGINX
+  yum:
+    name: nginx
+    state: latest
+ 
+- name: NGINX | Starting NGINX
+  service:
+    name: nginx
+    state: started
